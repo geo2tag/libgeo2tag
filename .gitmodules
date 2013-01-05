@@ -1,3 +1,3 @@
-[submodule "bin"]
+[submodule "auto"]
 	path = auto
 	url = git://github.com/geo2tag/automation.git
