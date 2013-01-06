@@ -67,7 +67,7 @@ clean:
 	dh_clean
 
 unittest:
-	echo "FIXME: no tests enabled"
+	o "FIXME: no tests enabled" >test_summary.log
 	
 
 install: build unittest
