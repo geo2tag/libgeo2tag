@@ -1,10 +1,10 @@
 #!/usr/bin/make -f
 # debian/rules for cadaver
 #
-# Written by Pavel Zubarev <zps@osll.spb.ru>.
+# Geo2tag Platform 
 
 # Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+export DH_VERBOSE=1
 
 # These are used for cross-compiling and for saving the configure script
 # from having to guess our platform (since we know it already)
@@ -32,8 +32,8 @@ build-stamp:
 	dh_testdir
 	dh_clean
 	cp -r ./src $(BUILDDIR)
-	cp -r ./data $(BUILDDIR)
-	cp -r ./scripts $(BUILDDIR)
+#	cp -r ./data $(BUILDDIR)
+#	cp -r ./scripts $(BUILDDIR)
 	cp -r ./debian/config.pri $(BUILDDIR)
 #Check what architecture we are use. If it is i386, we need to build all for i386, else build all armel code
 	if [ "$(DEB_BUILD_ARCH)" != "armel" ];  \
@@ -67,7 +67,7 @@ clean:
 	dh_clean
 
 unittest:
-	./tst/unit/platform.sh
+	echo "FIXME: no tests enabled"
 	
 
 install: build unittest
@@ -76,8 +76,8 @@ install: build unittest
 	dh_clean -k
 	dh_installdirs
 	$(MAKE) -C $(BUILDDIR) INSTALL_ROOT=$(CURDIR)/debian/tmp install; 
-	sed -i "s/geo2tag_build.*$$/geo2tag_build=$(lastCommit)-$(buildNum)/" $(CURDIR)/debian/tmp/opt/geo2tag/geo2tag.conf
-	sed -i "s/geo2tag_version.*$$/geo2tag_version=$(version)/" $(CURDIR)/debian/tmp/opt/geo2tag/geo2tag.conf
+#	sed -i "s/geo2tag_build.*$$/geo2tag_build=$(lastCommit)-$(buildNum)/" $(CURDIR)/debian/tmp/opt/geo2tag/geo2tag.conf
+#	sed -i "s/geo2tag_version.*$$/geo2tag_version=$(version)/" $(CURDIR)/debian/tmp/opt/geo2tag/geo2tag.conf
 
 #	install -d $(CURDIR)/debian/tmp/etc/event.d; 
 #	install -d $(CURDIR)/debian/tmp/etc/logrotate.d; 
@@ -87,24 +87,24 @@ install: build unittest
 		echo "armel arch instalation"; \
 	else \
 		install -d $(CURDIR)/debian/tmp/opt/geo2tag; 
-		install -d $(CURDIR)/debian/tmp/var/www; 
+#		install -d $(CURDIR)/debian/tmp/var/www; 
 #		install -d $(CURDIR)/debian/tmp/etc/lighttpd/conf-enabled; \
 		cp $(BUILDDIR)/service/wikigps-service.conf $(CURDIR)/debian/tmp/etc/lighttpd/conf-enabled; \
 		cp $(BUILDDIR)/service/pg_hba.conf $(CURDIR)/debian/tmp/opt/geo2tag; \
 		cp $(BUILDDIR)/service/fcgi_server $(CURDIR)/debian/tmp/opt/geo2tag; 
-		cp scripts/base.sql $(CURDIR)/debian/tmp/opt/geo2tag; 
+#		cp scripts/base.sql $(CURDIR)/debian/tmp/opt/geo2tag; 
 #		cp scripts/odbc.ini $(CURDIR)/debian/tmp/opt/geo2tag; \
 		cp scripts/odbcinst.ini $(CURDIR)/debian/tmp/opt/geo2tag; 
-		cp $(CURDIR)/stuff/geo2tag-webside.conf $(CURDIR)/debian/tmp/opt/geo2tag;
-		cp $(CURDIR)/stuff/geo2tag.war $(CURDIR)/debian/tmp/opt/geo2tag; 
-		cp $(CURDIR)/stuff/apache-tomcat-7.0.27.zip $(CURDIR)/debian/tmp/opt/geo2tag; 
+#		cp $(CURDIR)/stuff/geo2tag-webside.conf $(CURDIR)/debian/tmp/opt/geo2tag;
+#		cp $(CURDIR)/stuff/geo2tag.war $(CURDIR)/debian/tmp/opt/geo2tag; 
+#		cp $(CURDIR)/stuff/apache-tomcat-7.0.27.zip $(CURDIR)/debian/tmp/opt/geo2tag; 
 #	fi;
 #	cp $(BUILDDIR)tracker/wikigpsTracker $(CURDIR)/debian/tmp/etc/event.d; 
 #	cp $(BUILDDIR)tracker/wikigpsTracker-logrotate $(CURDIR)/debian/tmp/etc/logrotate.d; 
 #	cp $(BUILDDIR)data/wikigps.png $(CURDIR)/debian/tmp/usr/share/icons/hicolor/48x48/apps/wikigpsTracker-ui.png; 
 #	cp $(BUILDDIR)data/tracker.desktop $(CURDIR)/debian/tmp/usr/share/applications/hildon/tracker.desktop
 
-	dh_install -s
+#	dh_install -s
 	
 
 # Must not depend on anything. This is to be called by
